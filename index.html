@@ -153,10 +153,7 @@
 
         // Event listener for incoming messages
         Genesys("subscribe", "MessagingService.messagesReceived", function({ data }) {
-            var jsonObject = JSON.parse(data);
-            var messagesArray = jsonObject.messages;
-            var firstMessage = messagesArray[0];
-            var messageText = firstMessage.body.text
+            var messageText = data.body.text
             console.log(messageText);
             ddMessageToChat(messageText)
             
