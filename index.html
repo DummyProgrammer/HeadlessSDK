@@ -43,6 +43,7 @@
     <button id="start-btn">Start Chat</button>
     <button id="send-btn">Send</button>
     <button id="disc-btn">Disconnect Chat</button>
+    <button id="del-btn">Delete Local Storage</button>
 
 
     <script>
@@ -80,7 +81,6 @@
             const message_user = messageInput.value.trim();
             if (message_user !== '') {
                 messageInput.value = ''; // Clear input field
-                addMessageToChat(message_user)
                 Genesys("command", "MessagingService.sendMessage", {
                     message: message_user
                     },
@@ -119,6 +119,14 @@
 
         }
 
+        function removeLocalValues(){
+            localStorage.removeItem('_actmu');
+            localStorage.removeItem('_actms');
+            localStorage.removeItem('_actts');
+            localStorage.removeItem('_actvc')
+
+        }
+
         Genesys("subscribe", "MessagingService.started", function({data}){
             console.log(data)
             console.log("MessageService.started event published!")
@@ -133,6 +141,9 @@
         // Event listener for start chat button click
         document.getElementById('start-btn').addEventListener('click', startChat);
 
+        // Event listener for Delete button click
+        document.getElementById('del-btn').addEventListener('click', removeLocalValues);
+
         // Event listener for pressing Enter key in input field
         document.getElementById('message-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
@@ -141,9 +152,10 @@
         });
 
         // Event listener for incoming messages
-        genesysWS.onmessage = function (event) {
-            addMessageToChat(event.data); // Add received message to chat
-        };
+        Genesys("subscribe", "MessagingService.messagesReceived", function({ data }) {
+            console.log(data);
+            addMessageToChat(data)
+});
     </script>
 </body>
 </html>
