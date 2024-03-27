@@ -40,6 +40,7 @@
 <body>
     <div id="chat-container"></div>
     <input type="text" id="message-input" placeholder="Type your message...">
+    <button id="start-btn">Start Chat</button>
     <button id="send-btn">Send</button>
     <button id="disc-btn">Disconnect Chat</button>
 
@@ -105,6 +106,19 @@
                 );
         }
 
+        function startChat(){
+              Genesys("command", "MessagingService.startConversation",
+                {},
+                function() {
+                    console.log("Conversation Started! WebSocket initiated")
+                },
+                function() {
+                    console.log("Error unable to start!")
+                }
+            ); 
+
+        }
+
         Genesys("subscribe", "MessagingService.started", function({data}){
             console.log(data)
             console.log("MessageService.started event published!")
@@ -115,6 +129,9 @@
         
         // Event listener for disconnect button click
         document.getElementById('disc-btn').addEventListener('click', clearSession);
+
+        // Event listener for start chat button click
+        document.getElementById('start-btn').addEventListener('click', startChat);
 
         // Event listener for pressing Enter key in input field
         document.getElementById('message-input').addEventListener('keypress', function (e) {
