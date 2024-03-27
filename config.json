@@ -1,0 +1,51 @@
+{
+    "id": "f536aeb3-456e-4d1c-8401-ac33e5a54eaa",
+    "name": "Headless Messenger ",
+    "version": "DRAFT",
+    "headlessMode": {
+      "enabled": true
+    },
+    "description": "Configuration for messenger via headless SDK",
+    "languages": [
+      "en-us"
+    ],
+    "defaultLanguage": "en-us",
+    "apiEndpoint":"https://apps.usw2.pure.cloud", 
+    "customI18nLabels": [],
+    "messenger": {
+      "enabled": true,
+      "fileUpload": {
+        "modes": [
+          {
+            "fileTypes": [
+              "image/jpeg",
+              "image/gif",
+              "image/png"
+            ],
+            "maxFileSizeKB": 10240
+          }
+        ]
+      },
+      "apps": {
+        "conversations": {
+          "enabled": true,
+          "showAgentTypingIndicator": true,
+          "showUserTypingIndicator": true,
+          "autoStart": {
+            "enabled": false
+          }
+        }
+      }
+
+    },
+    "journeyEvents": {
+      "enabled": false
+    },
+    "authenticationSettings": {
+      "enabled": false,
+      "integrationId": "",
+      "allowSessionUpgrade": false
+    },
+
+    "status": "Active"
+  }
