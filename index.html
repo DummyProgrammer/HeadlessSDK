@@ -156,8 +156,9 @@
             var jsonObject = JSON.parse(data);
             var messagesArray = jsonObject.messages;
             var firstMessage = messagesArray[0];
-            console.log(firstMessage);
-            ddMessageToChat(firstMessage)
+            var messageText = firstMessage.body.text
+            console.log(messageText);
+            ddMessageToChat(messageText)
             
 });
     </script>
