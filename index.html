@@ -41,6 +41,7 @@
     <div id="chat-container"></div>
     <input type="text" id="message-input" placeholder="Type your message...">
     <button id="send-btn">Send</button>
+    <button id="disc-btn">Disconnect Chat</button>
 
 
     <script>
@@ -91,6 +92,19 @@
                 );
             }
         }
+
+        function clearSession(){
+            Genesys("command", "MessagingService.clearSession",
+                {},
+                    function() {
+                        console.log("Session has been cleared")
+                    },
+                    function() {
+                        console.log("Error, session can't be cleared")
+                    }
+                );
+        }
+
         Genesys("subscribe", "MessagingService.started", function({data}){
             console.log(data)
             console.log("MessageService.started event published!")
@@ -98,6 +112,9 @@
 
         // Event listener for send button click
         document.getElementById('send-btn').addEventListener('click', sendMessage);
+        
+        // Event listener for disconnect button click
+        document.getElementById('disc-btn').addEventListener('click', clearSession);
 
         // Event listener for pressing Enter key in input field
         document.getElementById('message-input').addEventListener('keypress', function (e) {
