@@ -49,6 +49,19 @@
             Plugin.command("GenesysJS.configuration").then( (data) => { console.log("Deployment configuration", data)} );
         });
 
+        Genesys('subscribe', 'MessagingService.ready', () => {
+            console.log("MessagingService is ready!")
+            Genesys("command", "MessagingService.startConversation",
+                {},
+                function() {
+                    console.log("Conversation Started! WebSocket initiated")
+                },
+                function() {
+                    console.log("Error unable to start!")
+                }
+            );
+        });
+
         // Function to add message to chat container
         function addMessageToChat(message) {
             const chatContainer = document.getElementById('chat-container');
@@ -62,11 +75,26 @@
         // Function to handle sending message
         function sendMessage() {
             const messageInput = document.getElementById('message-input');
-            const message = messageInput.value.trim();
-            if (message !== '') {
+            const message_user = messageInput.value.trim();
+            if (message_user !== '') {
                 messageInput.value = ''; // Clear input field
+                addMessageToChat(message_user)
+                Genesys("command", "MessagingService.sendMessage", {
+                    message: message_user
+                    },
+                    function() {
+                        console.log("Message sent!")
+                    },
+                    function() {
+                        console.log("Unable to send message!")
+                     }
+                );
             }
         }
+        Genesys("subscribe", "MessagingService.started", function({data}){
+            console.log(data)
+            console.log("MessageService.started event published!")
+        });
 
         // Event listener for send button click
         document.getElementById('send-btn').addEventListener('click', sendMessage);
