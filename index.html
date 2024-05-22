@@ -131,7 +131,15 @@
             console.log(data)
             console.log("MessageService.started event published!")
             if ( !data.newsession ) {
-				Genesys("command", "MessagingService.fetchHistory"); 
+                Genesys("command", "MessagingService.fetchHistory",
+                {},
+                    function() {
+                        console.log(data)
+                    },
+                    function() {
+                        /*rejected callback*/
+                    }
+                );
 			}
         });
 
