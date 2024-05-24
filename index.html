@@ -130,6 +130,7 @@
         Genesys("subscribe", "MessagingService.started", function({data}){
             console.log(data)
             console.log("MessageService.started event published!")
+            /*
             if ( !data.newsession ) {
                 Genesys("command", "MessagingService.fetchHistory",
                 {},
@@ -145,7 +146,8 @@
                         console.log("Unable to Fetch History")
                     }
                 );
-			}
+                
+			}*/
         });
 
         Genesys("subscribe", "MessagingService.reconnected", function() {
