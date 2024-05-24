@@ -150,6 +150,19 @@
 
         Genesys("subscribe", "MessagingService.reconnected", function() {
             console.log("Session Reconnected")
+            Genesys("command", "MessagingService.fetchHistory",
+                {},
+                    function(data) {
+                        console.log("Conversation History Fetched!")
+                        const textFields = data.messages.map(message => message.text);
+                        console.log(textFields); // Output: ["Text1", "Text2"]
+                        addMessageToChat(textFields)
+                        console.log("Previous messages while disconnected are displayed!")
+                    },
+                    function() {
+                        console.log("Unable to Fetch History")
+                    }
+                );
         });
 
         // Event listener for send button click
