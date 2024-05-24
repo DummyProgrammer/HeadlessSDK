@@ -138,16 +138,8 @@
                         console.log(data)
                         const textFields = data.messages.map(message => message.text);
                         console.log(textFields); // Output: ["Hello", "asd"]
-                        Genesys("command", "MessagingService.sendMessage", {
-                            message: textFields
-                            },
-                                function() {
-                                    console.log("History Published!")
-                                },
-                                function() {
-                                    console.log("Unable to publish history!")
-                                }
-                            );
+                        addMessageToChat(textFields)
+                        console.log("History displayed in UI!")
                     },
                     function() {
                         /*rejected callback*/
