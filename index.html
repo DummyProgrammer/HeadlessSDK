@@ -154,7 +154,7 @@
                 {},
                     function(data) {
                         console.log("Conversation History Fetched!")
-                        conSOle.log(data)
+                        console.log(data)
                         const textFields = data.messages.map(message => message.text);
                         console.log(textFields); // Output: ["Text1", "Text2"]
                         addMessageToChat(textFields)
