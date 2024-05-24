@@ -137,7 +137,7 @@
                         console.log("Conversation History Fetched!")
                         console.log(data)
                         Genesys("command", "MessagingService.sendMessage", {
-                            message: data
+                            message: data.messages
                             },
                                 function() {
                                     console.log("History Published!")
