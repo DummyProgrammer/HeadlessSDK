@@ -44,6 +44,7 @@
     <button id="send-btn">Send</button>
     <button id="disc-btn">Disconnect Chat</button>
     <button id="del-btn">Delete Local Storage</button>
+    <button id="fetch-btn">Fetch Conversation History</button>
 
 
     <script>
@@ -118,6 +119,25 @@
             ); 
 
         }
+
+        function fetchHistory(){
+            Genesys("command", "MessagingService.fetchHistory",
+                {},
+                    function(data) {
+                        console.log("Conversation History Fetched!")
+                        console.log(data)
+                        const textFields = data.messages.map(message => message.text);
+                        console.log(textFields); // Output: ["Text1", "Text2"]
+                        addMessageToChat(textFields)
+                        console.log("History displayed in UI!")
+                    },
+                    function() {
+                        console.log("Unable to Fetch History")
+                    }
+                );
+                
+			}
+
 
         function removeLocalValues(){
             localStorage.removeItem('_actmu');
@@ -194,6 +214,9 @@
 
         // Event listener for start chat button click
         document.getElementById('start-btn').addEventListener('click', startChat);
+
+       // Event listener for start chat button click
+       document.getElementById('fetch-btn').addEventListener('click', fetchHistory);
 
         // Event listener for Delete button click
         document.getElementById('del-btn').addEventListener('click', removeLocalValues);
