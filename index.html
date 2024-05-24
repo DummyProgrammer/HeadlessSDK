@@ -137,7 +137,7 @@
                         console.log("Conversation History Fetched!")
                         console.log(data)
                         const textFields = data.messages.map(message => message.text);
-                        console.log(textFields); // Output: ["Hello", "asd"]
+                        console.log(textFields); // Output: ["Text1", "Text2"]
                         addMessageToChat(textFields)
                         console.log("History displayed in UI!")
                     },
@@ -146,6 +146,10 @@
                     }
                 );
 			}
+        });
+
+        Genesys("subscribe", "MessagingService.reconnected", function() {
+            console.log("Session Reconnected")
         });
 
         // Event listener for send button click
