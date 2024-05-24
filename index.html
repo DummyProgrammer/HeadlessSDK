@@ -134,7 +134,18 @@
                 Genesys("command", "MessagingService.fetchHistory",
                 {},
                     function(data) {
+                        console.log("Conversation History Fetched!")
                         console.log(data)
+                        Genesys("command", "MessagingService.sendMessage", {
+                            message: data
+                            },
+                                function() {
+                                    console.log("History Published!")
+                                },
+                                function() {
+                                    console.log("Unable to publish history!")
+                                }
+                            );
                     },
                     function() {
                         /*rejected callback*/
