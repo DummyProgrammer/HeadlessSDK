@@ -136,7 +136,7 @@
                     function(data) {
                         console.log("Conversation History Fetched!")
                         console.log(data)
-                        const textFields = data.entities.map(entity => entity.text);
+                        const textFields = data.messages.map(message => message.text);
                         console.log(textFields); // Output: ["Hello", "asd"]
                         Genesys("command", "MessagingService.sendMessage", {
                             message: textFields
