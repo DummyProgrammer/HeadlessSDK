@@ -156,7 +156,11 @@
 
         Genesys("subscribe", "MessagingService.restored", function({ data }) {
             console.log ("MessagingService restored!")
-            console.log(data);
+            console.log(data)
+            const textFields = data.messages.map(message => message.text);
+            console.log(textFields); // Output: ["Text1", "Text2"]
+            addMessageToChat(textFields)
+            console.log("Previous messages while disconnected are displayed!")
         });
 
         Genesys("subscribe", "MessagingService.oldMessages", function({ data }) {
